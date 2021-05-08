@@ -18,6 +18,8 @@ namespace Aprendiendo_Isa.Models
         {
             this.TipoPieza = tipo;
             this.Movimientos =
+
+                List<Posicion> Posiciones = new List<Posicion>() { }
         }
     }
 
