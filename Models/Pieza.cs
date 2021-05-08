@@ -4,18 +4,34 @@ using System.Text;
 
 namespace Aprendiendo_Isa.Models
 {
-    class Pieza
+    public class Pieza
     {
         public int Id{ get; set; }
         public List<Posicion> Movimientos { get; set; }
-        public int tipo { get; set; }
-        public int valor { get; set; }
+        public TipoPieza TipoPieza { get; set; }
+        public int MyProperty { get; set; }
+        public int Valor { get; set; }
+
+
+
+        public Pieza(TipoPieza tipo)
+        {
+            this.TipoPieza = tipo;
+            this.Movimientos =
+        }
     }
 
-    class Posicion
+
+    public enum TipoPieza
     {
-        public int posX { get; set; }
-        public int posY { get; set; }
+
+    }
+    
+    public class Posicion
+    {
+        public int PosX { get; set; }
+        public int PosY { get; set; }
+        public DateTime Tiempo { get; set; }
 
     }
 }

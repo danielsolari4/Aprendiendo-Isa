@@ -8,6 +8,14 @@ namespace Aprendiendo_Isa
     {
         //TODO: Hacer una pieza objeto con pos y cion... la tengo que poder mover a veces.
 
+        //Piezas
+
+        
+
+        
+            
+        
+
         static void Main(string[] args)
         {
             Console.WriteLine("Tablero de Ajedrez");
@@ -15,6 +23,10 @@ namespace Aprendiendo_Isa
             string[] filasLetras = new string[] { "A", "B", "C", "D", "E", "F", "G", "H" };
             int[] filas = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
             int[] columnas = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+
+            var Torre = new Pieza(3);
+            Torre.tipo = 0;
 
             List<Posiciones> posiciones = new List<Posiciones>();
 
