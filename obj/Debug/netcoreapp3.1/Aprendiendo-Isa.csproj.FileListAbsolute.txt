@@ -11,3 +11,16 @@ C:\Users\Daniç\source\repos\Aprendiendo-Isa\Aprendiendo-Isa\obj\Debug\netcoreap
 C:\Users\Daniç\source\repos\Aprendiendo-Isa\Aprendiendo-Isa\obj\Debug\netcoreapp3.1\Aprendiendo-Isa.dll
 C:\Users\Daniç\source\repos\Aprendiendo-Isa\Aprendiendo-Isa\obj\Debug\netcoreapp3.1\Aprendiendo-Isa.pdb
 C:\Users\Daniç\source\repos\Aprendiendo-Isa\Aprendiendo-Isa\obj\Debug\netcoreapp3.1\Aprendiendo-Isa.genruntimeconfig.cache
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\obj\Debug\netcoreapp3.1\Aprendiendo-Isa.csprojAssemblyReference.cache
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\obj\Debug\netcoreapp3.1\Aprendiendo-Isa.AssemblyInfoInputs.cache
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\obj\Debug\netcoreapp3.1\Aprendiendo-Isa.AssemblyInfo.cs
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\obj\Debug\netcoreapp3.1\Aprendiendo-Isa.csproj.CoreCompileInputs.cache
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\obj\Debug\netcoreapp3.1\Aprendiendo-Isa.dll
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\obj\Debug\netcoreapp3.1\Aprendiendo-Isa.pdb
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\bin\Debug\netcoreapp3.1\Aprendiendo-Isa.exe
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\bin\Debug\netcoreapp3.1\Aprendiendo-Isa.deps.json
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\bin\Debug\netcoreapp3.1\Aprendiendo-Isa.runtimeconfig.json
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\bin\Debug\netcoreapp3.1\Aprendiendo-Isa.runtimeconfig.dev.json
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\bin\Debug\netcoreapp3.1\Aprendiendo-Isa.dll
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\bin\Debug\netcoreapp3.1\Aprendiendo-Isa.pdb
+C:\Users\Dani\Desktop\Aprendiendo-isa-2\obj\Debug\netcoreapp3.1\Aprendiendo-Isa.genruntimeconfig.cache

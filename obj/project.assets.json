@@ -8,19 +8,23 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Daniç\\.nuget\\packages\\": {}
+    "C:\\Users\\Dani\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Daniç\\source\\repos\\Aprendiendo-Isa\\Aprendiendo-Isa\\Aprendiendo-Isa.csproj",
+      "projectUniqueName": "C:\\Users\\Dani\\Desktop\\Aprendiendo-isa-2\\Aprendiendo-Isa.csproj",
       "projectName": "Aprendiendo-Isa",
-      "projectPath": "C:\\Users\\Daniç\\source\\repos\\Aprendiendo-Isa\\Aprendiendo-Isa\\Aprendiendo-Isa.csproj",
-      "packagesPath": "C:\\Users\\Daniç\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Daniç\\source\\repos\\Aprendiendo-Isa\\Aprendiendo-Isa\\obj\\",
+      "projectPath": "C:\\Users\\Dani\\Desktop\\Aprendiendo-isa-2\\Aprendiendo-Isa.csproj",
+      "packagesPath": "C:\\Users\\Dani\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Dani\\Desktop\\Aprendiendo-isa-2\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Daniç\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dani\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -32,6 +36,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -43,6 +48,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "imports": [
           "net461",
           "net462",
@@ -58,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,6 +1,7 @@
 ﻿using Aprendiendo_Isa.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Aprendiendo_Isa
 {
@@ -10,11 +11,11 @@ namespace Aprendiendo_Isa
 
         //Piezas
 
-        
 
-        
-            
-        
+
+
+
+
 
         static void Main(string[] args)
         {
@@ -24,32 +25,57 @@ namespace Aprendiendo_Isa
             int[] filas = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
             int[] columnas = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
 
+            //Creacion de piezas
+            Pieza TorreNegra1 = new Pieza(1,TipoPieza.Torre, "negra", 1, 1);
+            Pieza CaballoNegro1 = new Pieza(2,TipoPieza.Caballo, "negra", 1, 2);
 
-            var Torre = new Pieza(3);
-            Torre.tipo = 0;
 
-            List<Posiciones> posiciones = new List<Posiciones>();
+            //List<Posiciones> posiciones = new List<Posiciones>();
 
-            dibujarTablero(filasLetras, filas, columnas, null);
+            List<Pieza> piezas = new List<Pieza>();
+            piezas.Add(TorreNegra1);
+            piezas.Add(CaballoNegro1);
+
+            dibujarTablero(filasLetras, filas, columnas, null, piezas);
 
             while (true)
             {
                 //Siempre le daba el valor nuevo al mismo objeto
-                Posiciones pos = new Posiciones();
+
+                Console.WriteLine("Eleji la pieza que quieras mover:");
+
+                listadoPiezas(piezas);
+
+                var selectPieza = Console.ReadLine();
+                var piezaMover = piezas.Find(x => x.Id == int.Parse(selectPieza));
+
+
                 Console.WriteLine("Eleji tus coordenadas A-H:");
                 var coLetras = Console.ReadLine();
                 Console.WriteLine("Eleji tus coordenadas 1-8:");
                 var coNumeros = Console.ReadLine();
 
-                pos.posFila = letrasANumeros(coLetras);
-                pos.posColumna = int.Parse(coNumeros);
-                posiciones.Add(pos);
+                piezaMover.Movimientos.Add(new Posicion(letrasANumeros(coLetras), int.Parse(coNumeros), DateTime.Now));
 
-                dibujarTablero(filasLetras, filas, columnas, posiciones);
+                dibujarTablero(filasLetras, filas, columnas, piezaMover, piezas);
+
             }
 
         }
 
+        public static void listadoPiezas(List<Pieza> piezas)
+        {
+            foreach (var item in piezas)
+            {
+                Console.WriteLine(item.Id + "-" + item.TipoPieza);
+            }
+        }
+
+
+        public static void moverPieza(Pieza pieza, int posY, int posX)
+        {
+            pieza.Movimientos.Add(new Posicion(posX, posY, DateTime.Now));
+        }
         public static int letrasANumeros(string coLetras)
         {
             switch (coLetras)
@@ -75,7 +101,7 @@ namespace Aprendiendo_Isa
                     return 99;
             }
         }
-        public static void dibujarTablero(string[] filasLetras, int[] filas, int[] columnas, List<Posiciones> posiciones)
+        public static void dibujarTablero(string[] filasLetras, int[] filas, int[] columnas, Pieza pieza, List<Pieza> piezasList)
         {
             for (int i = 0; i < filas.Length; i++)
             {
@@ -83,14 +109,19 @@ namespace Aprendiendo_Isa
                 Console.Write(filasLetras[i] + "-");
                 for (int x = 0; x < columnas.Length; x++)
                 {
-                    if (coincide(posiciones, filas[i], columnas[x]))
+
+
+                    if (coincide(piezasList, filas[i], columnas[x]))
                     {
-                        Console.Write("X ");
+                        
+                        //Console.Write(piesita.TipoPieza);
+                        //Console.Write("X ");
                     }
                     else
                     {
                         Console.Write("0 ");
                     }
+
                 }
                 //Ultima lineas coordenadas numeros
                 if (i == 7)
@@ -106,23 +137,34 @@ namespace Aprendiendo_Isa
             }
 
         }
-        public static bool coincide(List<Posiciones> posiciones, int fila, int columna)
+        public static bool coincide(List<Pieza> piezas, int fila, int columna)
         {
-
-            if (posiciones != null && posiciones.Count > 0)
+            if (piezas.Count > 0 && piezas != null)
             {
-                foreach (var item in posiciones)
+
+                foreach (var pieza in piezas)
                 {
-                    if (columna == item.posColumna && fila == item.posFila)
+
+                    if (pieza.Movimientos != null && pieza.Movimientos.Count > 0)
                     {
-                        return true;
+                        var ultimoMovimiento = pieza.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
+
+
+                        if (columna == ultimoMovimiento.PosY && fila == ultimoMovimiento.PosX)
+                        {
+                            Console.Write(pieza.TipoPieza.ToString()[0]+" ");
+                            return true;
+                        }
+                        //else
+                        //Console.Write("0 ");
+
+                        //Console.Write("0 ");
                     }
-                    //else
-                    //Console.Write("0 ");
+                    //return false;
                 }
-                //Console.Write("0 ");
             }
             return false;
+
         }
     }
 }
