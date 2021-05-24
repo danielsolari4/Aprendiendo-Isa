@@ -29,13 +29,22 @@ namespace Aprendiendo_Isa
             //Creacion de piezas
             Pieza TorreNegra1 = new Pieza(1, TipoPieza.Torre, "negra", 1, 1);
             Pieza CaballoNegro1 = new Pieza(2, TipoPieza.Caballo, "negra", 1, 2);
+            Pieza AlfilNegro1 = new Pieza(3, TipoPieza.Alfil, "negra", 1, 3);
+            Pieza ReinaNegra1 = new Pieza(4, TipoPieza.Reina, "negra", 1, 4);
+            Pieza ReyNegro1 = new Pieza(5, TipoPieza.Rey, "negra", 1, 5);
 
+            Pieza TorreBlanca1 = new Pieza(6, TipoPieza.Torre, "blanca", 8, 1);
 
             //List<Posiciones> posiciones = new List<Posiciones>();
 
             List<Pieza> piezas = new List<Pieza>();
             piezas.Add(TorreNegra1);
+            
             piezas.Add(CaballoNegro1);
+            piezas.Add(AlfilNegro1);
+            piezas.Add(ReinaNegra1);
+            piezas.Add(ReyNegro1);
+            piezas.Add(TorreBlanca1);
 
             dibujarTablero(filasLetras, filas, columnas, null, piezas);
 
@@ -62,15 +71,29 @@ namespace Aprendiendo_Isa
 
                 var nuevaPosicion = new Posicion(letrasANumeros(coLetras), int.Parse(coNumeros), DateTime.Now);
 
-                if (!coincideColor(nuevaPosicion, piezas) && moverPieza(piezaMover, nuevaPosicion.PosX, nuevaPosicion.PosY))
+                if (!coincideColor(nuevaPosicion, piezas) && moverPieza(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX))
                 {
                     piezaMover.Movimientos.Add(nuevaPosicion);
                 }
                 else
                 {
-                    Console.WriteLine("No es posible moverse aqui");
-                }
+                    if (coincideColor(nuevaPosicion, piezas) && moverPieza(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX))
+                    {
+                        comerPieza(nuevaPosicion.PosY, nuevaPosicion.PosX, piezas);
+                        piezaMover.Movimientos.Add(nuevaPosicion);
+                    }
+                    else
+                    {
 
+                        Console.Clear();
+                        //ConsoleColor newForeColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("No es posible moverse aqui");
+                    }
+
+                }
+                //Console.ReadKey();
+                //Console.Clear();
                 dibujarTablero(filasLetras, filas, columnas, piezaMover, piezas);
 
             }
@@ -83,8 +106,22 @@ namespace Aprendiendo_Isa
             {
                 Console.WriteLine(item.Id + "-" + item.TipoPieza);
             }
+            Console.WriteLine("---------------------------------");
         }
 
+        public static void comerPieza(int posY, int posX, List<Pieza> piezas)
+        {
+            foreach (var pieza in piezas)
+            {
+                var comerPieza = pieza.Movimientos.FirstOrDefault(x => x.PosY == posY && x.PosX == posX);
+                if (comerPieza != null)
+                {
+                    piezas.Remove(pieza);
+                    break;
+                }
+                
+            }
+        }
 
         public static bool moverPieza(Pieza pieza, int posY, int posX)
         {
@@ -100,7 +137,7 @@ namespace Aprendiendo_Isa
                 {
                     return true;
                 }
-                
+
             }
             //pieza.Movimientos.Add(new Posicion(posX, posY, DateTime.Now));
 
@@ -138,13 +175,13 @@ namespace Aprendiendo_Isa
 
             foreach (var pieza in piezas)
             {
-                foreach (var movimiento in pieza.Movimientos)
+
+                var pos = pieza.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
+                if (pos.PosX == posicion.PosX && pos.PosY == posicion.PosY)
                 {
-                    if (movimiento.PosX == posicion.PosX && movimiento.PosY == posicion.PosY)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
+
 
             }
 
@@ -152,6 +189,8 @@ namespace Aprendiendo_Isa
         }
         public static void dibujarTablero(string[] filasLetras, int[] filas, int[] columnas, Pieza pieza, List<Pieza> piezasList)
         {
+            //Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
             for (int i = 0; i < filas.Length; i++)
             {
                 //Primera linea coordenadas letras
