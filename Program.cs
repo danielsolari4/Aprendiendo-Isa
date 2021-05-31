@@ -71,13 +71,13 @@ namespace Aprendiendo_Isa
 
                 var nuevaPosicion = new Posicion(letrasANumeros(coLetras), int.Parse(coNumeros), DateTime.Now);
 
-                if (!coincideColor(nuevaPosicion, piezas) && moverPieza(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX))
+                if (!coincidePosicion(nuevaPosicion, piezas) && moverPieza(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX))
                 {
                     piezaMover.Movimientos.Add(nuevaPosicion);
                 }
                 else
                 {
-                    if (coincideColor(nuevaPosicion, piezas) && moverPieza(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX))
+                    if (coincidePosicion(nuevaPosicion, piezas) && moverPieza(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX))
                     {
                         comerPieza(nuevaPosicion.PosY, nuevaPosicion.PosX, piezas);
                         piezaMover.Movimientos.Add(nuevaPosicion);
@@ -170,7 +170,7 @@ namespace Aprendiendo_Isa
             }
         }
 
-        public static bool coincideColor(Posicion posicion, List<Pieza> piezas)
+        public static bool coincidePosicion(Posicion posicion, List<Pieza> piezas)
         {
 
             foreach (var pieza in piezas)
@@ -180,6 +180,28 @@ namespace Aprendiendo_Isa
                 if (pos.PosX == posicion.PosX && pos.PosY == posicion.PosY)
                 {
                     return true;
+                }
+
+
+            }
+
+            return false;
+        }
+
+        public static bool caminoLibre(int posY, int posX, List<Pieza> piezas)
+        {
+            
+
+            foreach (var pieza in piezas)
+            {
+
+                var piezaLugar = pieza.Movimientos.FirstOrDefault(x => x.PosY == posY && x.PosX == posX);
+
+                //var pos = pieza.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
+
+                if (piezaLugar != null)
+                {
+
                 }
 
 
