@@ -39,7 +39,7 @@ namespace Aprendiendo_Isa
 
             List<Pieza> piezas = new List<Pieza>();
             piezas.Add(TorreNegra1);
-            
+
             piezas.Add(CaballoNegro1);
             piezas.Add(AlfilNegro1);
             piezas.Add(ReinaNegra1);
@@ -71,17 +71,22 @@ namespace Aprendiendo_Isa
 
                 var nuevaPosicion = new Posicion(letrasANumeros(coLetras), int.Parse(coNumeros), DateTime.Now);
 
-                if (!coincidePosicion(nuevaPosicion, piezas) && moverPieza(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX))
+                if (!coincidePosicion(nuevaPosicion, piezas) && caminoLibre(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX, piezas))
                 {
                     piezaMover.Movimientos.Add(nuevaPosicion);
                 }
                 else
                 {
-                    if (coincidePosicion(nuevaPosicion, piezas) && moverPieza(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX))
+                    if (coincidePosicion(nuevaPosicion, piezas))
                     {
-                        comerPieza(nuevaPosicion.PosY, nuevaPosicion.PosX, piezas);
-                        piezaMover.Movimientos.Add(nuevaPosicion);
+
+                        if (caminoLibre(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX, piezas))
+                        {
+                            
+                            piezaMover.Movimientos.Add(nuevaPosicion);
+                        }
                     }
+
                     else
                     {
 
@@ -119,7 +124,7 @@ namespace Aprendiendo_Isa
                     piezas.Remove(pieza);
                     break;
                 }
-                
+
             }
         }
 
@@ -188,24 +193,74 @@ namespace Aprendiendo_Isa
             return false;
         }
 
-        public static bool caminoLibre(int posY, int posX, List<Pieza> piezas)
+        public static bool caminoLibre(Pieza piezaAMover, int posY, int posX, List<Pieza> piezas)
         {
-            
+            piezas.Remove(piezaAMover);
+            var ultimoMovimientoPiezaMover = piezaAMover.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
 
-            foreach (var pieza in piezas)
+            if (posY == ultimoMovimientoPiezaMover.PosY)
             {
+                var casillerosAnalizar = Math.Abs(posX - ultimoMovimientoPiezaMover.PosX);
 
-                var piezaLugar = pieza.Movimientos.FirstOrDefault(x => x.PosY == posY && x.PosX == posX);
-
-                //var pos = pieza.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
-
-                if (piezaLugar != null)
+                for (int i = 1; i <= casillerosAnalizar; i++)
                 {
+
+                    foreach (var pieza in piezas)
+                    {
+                        var hayPieza = pieza.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
+
+                        if (i == hayPieza.PosX)
+                        {
+                            return false;
+                        }
+                        if (i == casillerosAnalizar)
+                        {
+                            comerPieza(hayPieza.PosX, hayPieza.PosY, piezas);
+                        }
+                    }
+                    return true;
 
                 }
 
+            }
+            else
+            {
+                if (posX == ultimoMovimientoPiezaMover.PosX)
+                {
+                    var casillerosAnalizar = Math.Abs(posY - ultimoMovimientoPiezaMover.PosY);
+
+                    for (int i = 1; i <= casillerosAnalizar; i++)
+                    {
+
+                        foreach (var pieza in piezas)
+                        {
+                            var hayPieza = pieza.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
+
+                            if (i == hayPieza.PosY)
+                            {
+                                return false;
+                            }
+                            if (i == casillerosAnalizar)
+                            {
+                                if (pieza.Color != piezaAMover.Color)
+                                {
+
+                                comerPieza(hayPieza.PosX, hayPieza.PosY, piezas);
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+
+                        }
+                        return true;
+                    }
+
+                }
 
             }
+
 
             return false;
         }
