@@ -40,14 +40,14 @@ namespace Aprendiendo_Isa.Models
     
     public class Posicion
     {
-        public int PosX { get; set; }
         public int PosY { get; set; }
+        public int PosX { get; set; }
         public DateTime Tiempo { get; set; }
 
-        public Posicion(int PosX,int PosY, DateTime Tiempo)
+        public Posicion(int PosY, int PosX ,DateTime Tiempo)
         {
-            this.PosX = PosX;
             this.PosY = PosY;
+            this.PosX = PosX;
             this.Tiempo = Tiempo;
         }
 

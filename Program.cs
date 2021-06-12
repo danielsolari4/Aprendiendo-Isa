@@ -69,34 +69,27 @@ namespace Aprendiendo_Isa
                 var coNumeros = Console.ReadLine();
 
 
-                var nuevaPosicion = new Posicion(letrasANumeros(coLetras), int.Parse(coNumeros), DateTime.Now);
+                var nuevaPosicion = new Posicion(int.Parse(coNumeros), letrasANumeros(coLetras), DateTime.Now);
 
-                if (!coincidePosicion(nuevaPosicion, piezas) && caminoLibre(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX, piezas))
+
+
+
+                if (caminoLibre(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX, piezas))
                 {
                     piezaMover.Movimientos.Add(nuevaPosicion);
                 }
+
+
                 else
                 {
-                    if (coincidePosicion(nuevaPosicion, piezas))
-                    {
 
-                        if (caminoLibre(piezaMover, nuevaPosicion.PosY, nuevaPosicion.PosX, piezas))
-                        {
-                            
-                            piezaMover.Movimientos.Add(nuevaPosicion);
-                        }
-                    }
-
-                    else
-                    {
-
-                        Console.Clear();
-                        //ConsoleColor newForeColor = ConsoleColor.Red;
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("No es posible moverse aqui");
-                    }
-
+                    Console.Clear();
+                    //ConsoleColor newForeColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("No es posible moverse aqui");
                 }
+
+
                 //Console.ReadKey();
                 //Console.Clear();
                 dibujarTablero(filasLetras, filas, columnas, piezaMover, piezas);
@@ -114,18 +107,20 @@ namespace Aprendiendo_Isa
             Console.WriteLine("---------------------------------");
         }
 
-        public static void comerPieza(int posY, int posX, List<Pieza> piezas)
+        public static Pieza hayPieza(int posY, int posX, List<Pieza> listadoPiezas)
         {
-            foreach (var pieza in piezas)
-            {
-                var comerPieza = pieza.Movimientos.FirstOrDefault(x => x.PosY == posY && x.PosX == posX);
-                if (comerPieza != null)
-                {
-                    piezas.Remove(pieza);
-                    break;
-                }
+            var hayPiezaEnCasillero = listadoPiezas.FirstOrDefault(x => x.Movimientos.Any(c => c.PosX == posX && c.PosY == posY));
 
+            if (hayPiezaEnCasillero != null)
+            {
+                return hayPiezaEnCasillero;
             }
+            return null;
+        }
+
+        public static void comerPieza(Pieza pieza, List<Pieza> listPieza)
+        {
+            listPieza.Remove(pieza);
         }
 
         public static bool moverPieza(Pieza pieza, int posY, int posX)
@@ -193,10 +188,10 @@ namespace Aprendiendo_Isa
             return false;
         }
 
-        public static bool caminoLibre(Pieza piezaAMover, int posY, int posX, List<Pieza> piezas)
+        public static bool caminoLibre(Pieza piezaAMover, int posY, int posX, List<Pieza> listadoPiezas)
         {
-            piezas.Remove(piezaAMover);
             var ultimoMovimientoPiezaMover = piezaAMover.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
+            var result = false;
 
             if (posY == ultimoMovimientoPiezaMover.PosY)
             {
@@ -204,23 +199,23 @@ namespace Aprendiendo_Isa
 
                 for (int i = 1; i <= casillerosAnalizar; i++)
                 {
+                    var piezaAComer = hayPieza(posY,i, listadoPiezas);
 
-                    foreach (var pieza in piezas)
+                    if (piezaAComer != null)
                     {
-                        var hayPieza = pieza.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
-
-                        if (i == hayPieza.PosX)
+                        if (piezaAComer.Id == piezaAMover.Id)
                         {
-                            return false;
+                            continue;
                         }
                         if (i == casillerosAnalizar)
                         {
-                            comerPieza(hayPieza.PosX, hayPieza.PosY, piezas);
+                            comerPieza(piezaAComer, listadoPiezas);
                         }
+                        else
+                            return false;
                     }
-                    return true;
-
                 }
+                result = true;
 
             }
             else
@@ -231,38 +226,29 @@ namespace Aprendiendo_Isa
 
                     for (int i = 1; i <= casillerosAnalizar; i++)
                     {
+                        var piezaAComer = hayPieza(i, posX, listadoPiezas);
 
-                        foreach (var pieza in piezas)
+                        if (piezaAComer != null)
                         {
-                            var hayPieza = pieza.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
-
-                            if (i == hayPieza.PosY)
+                            if (piezaAComer.Id == piezaAMover.Id)
                             {
-                                return false;
+                                continue;
                             }
                             if (i == casillerosAnalizar)
                             {
-                                if (pieza.Color != piezaAMover.Color)
-                                {
-
-                                comerPieza(hayPieza.PosX, hayPieza.PosY, piezas);
-                                }
-                                else
-                                {
-                                    return false;
-                                }
+                                comerPieza(piezaAComer, listadoPiezas);
                             }
-
+                            else
+                                return false;
                         }
-                        return true;
                     }
-
+                    result = true;
                 }
 
             }
 
 
-            return false;
+            return result;
         }
         public static void dibujarTablero(string[] filasLetras, int[] filas, int[] columnas, Pieza pieza, List<Pieza> piezasList)
         {
