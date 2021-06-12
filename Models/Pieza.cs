@@ -14,14 +14,14 @@ namespace Aprendiendo_Isa.Models
 
 
 
-        public Pieza(int id,TipoPieza tipo,string color,int posX,int posY)
+        public Pieza(int id,TipoPieza tipo,string color,int posY, int posX)
         {
             this.Id = id;
             this.TipoPieza = tipo; 
             this.Color = color;
 
             List<Posicion> Posiciones = new List<Posicion>();
-            Posiciones.Add(new Posicion(posX,posY, DateTime.Now));
+            Posiciones.Add(new Posicion(posY, posX, DateTime.Now));
             this.Movimientos = Posiciones;
 
         }

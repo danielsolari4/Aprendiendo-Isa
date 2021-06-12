@@ -69,7 +69,7 @@ namespace Aprendiendo_Isa
                 var coNumeros = Console.ReadLine();
 
 
-                var nuevaPosicion = new Posicion(int.Parse(coNumeros), letrasANumeros(coLetras), DateTime.Now);
+                var nuevaPosicion = new Posicion(letrasANumeros(coLetras),int.Parse(coNumeros), DateTime.Now);
 
 
 
@@ -195,7 +195,7 @@ namespace Aprendiendo_Isa
 
             if (posY == ultimoMovimientoPiezaMover.PosY)
             {
-                var casillerosAnalizar = Math.Abs(posX - ultimoMovimientoPiezaMover.PosX);
+                var casillerosAnalizar = Math.Abs(posX - ultimoMovimientoPiezaMover.PosX) +1;
 
                 for (int i = 1; i <= casillerosAnalizar; i++)
                 {
@@ -222,7 +222,7 @@ namespace Aprendiendo_Isa
             {
                 if (posX == ultimoMovimientoPiezaMover.PosX)
                 {
-                    var casillerosAnalizar = Math.Abs(posY - ultimoMovimientoPiezaMover.PosY);
+                    var casillerosAnalizar = Math.Abs(posY - ultimoMovimientoPiezaMover.PosY) +1;
 
                     for (int i = 1; i <= casillerosAnalizar; i++)
                     {
@@ -262,7 +262,7 @@ namespace Aprendiendo_Isa
                 {
 
 
-                    if (coincide(piezasList, filas[i], columnas[x]))
+                    if (coincide(piezasList, columnas[x], filas[i]))
                     {
 
                         //Console.Write(piesita.TipoPieza);
