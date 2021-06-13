@@ -69,7 +69,7 @@ namespace Aprendiendo_Isa
                 var coNumeros = Console.ReadLine();
 
 
-                var nuevaPosicion = new Posicion(letrasANumeros(coLetras),int.Parse(coNumeros), DateTime.Now);
+                var nuevaPosicion = new Posicion(letrasANumeros(coLetras), int.Parse(coNumeros), DateTime.Now);
 
 
 
@@ -123,27 +123,6 @@ namespace Aprendiendo_Isa
             listPieza.Remove(pieza);
         }
 
-        public static bool moverPieza(Pieza pieza, int posY, int posX)
-        {
-
-            if (pieza.TipoPieza == TipoPieza.Torre)
-            {
-                var pos = pieza.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
-                if (posY == pos.PosY && posX != pos.PosX)
-                {
-                    return true;
-                }
-                if (posY != pos.PosY && posX == pos.PosX)
-                {
-                    return true;
-                }
-
-            }
-            //pieza.Movimientos.Add(new Posicion(posX, posY, DateTime.Now));
-
-
-            return false;
-        }
         public static int letrasANumeros(string coLetras)
         {
             switch (coLetras)
@@ -170,24 +149,6 @@ namespace Aprendiendo_Isa
             }
         }
 
-        public static bool coincidePosicion(Posicion posicion, List<Pieza> piezas)
-        {
-
-            foreach (var pieza in piezas)
-            {
-
-                var pos = pieza.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
-                if (pos.PosX == posicion.PosX && pos.PosY == posicion.PosY)
-                {
-                    return true;
-                }
-
-
-            }
-
-            return false;
-        }
-
         public static bool caminoLibre(Pieza piezaAMover, int posY, int posX, List<Pieza> listadoPiezas)
         {
             var ultimoMovimientoPiezaMover = piezaAMover.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
@@ -195,11 +156,11 @@ namespace Aprendiendo_Isa
 
             if (posY == ultimoMovimientoPiezaMover.PosY)
             {
-                var casillerosAnalizar = Math.Abs(posX - ultimoMovimientoPiezaMover.PosX) +1;
+                var casillerosAnalizar = Math.Abs(posX - ultimoMovimientoPiezaMover.PosX) + 1;
 
                 for (int i = 1; i <= casillerosAnalizar; i++)
                 {
-                    var piezaAComer = hayPieza(posY,i, listadoPiezas);
+                    var piezaAComer = hayPieza(posY, i, listadoPiezas);
 
                     if (piezaAComer != null)
                     {
@@ -209,7 +170,10 @@ namespace Aprendiendo_Isa
                         }
                         if (i == casillerosAnalizar)
                         {
-                            comerPieza(piezaAComer, listadoPiezas);
+                            if (piezaAComer.Color != piezaAMover.Color)
+                            {
+                                comerPieza(piezaAComer, listadoPiezas);
+                            }
                         }
                         else
                             return false;
@@ -222,7 +186,7 @@ namespace Aprendiendo_Isa
             {
                 if (posX == ultimoMovimientoPiezaMover.PosX)
                 {
-                    var casillerosAnalizar = Math.Abs(posY - ultimoMovimientoPiezaMover.PosY) +1;
+                    var casillerosAnalizar = Math.Abs(posY - ultimoMovimientoPiezaMover.PosY) + 1;
 
                     for (int i = 1; i <= casillerosAnalizar; i++)
                     {
@@ -236,7 +200,10 @@ namespace Aprendiendo_Isa
                             }
                             if (i == casillerosAnalizar)
                             {
-                                comerPieza(piezaAComer, listadoPiezas);
+                                if (piezaAComer.Color != piezaAMover.Color)
+                                {
+                                    comerPieza(piezaAComer, listadoPiezas);
+                                }
                             }
                             else
                                 return false;
