@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Aprendiendo_Isa.Models
 {
-    public class Pieza
+    public abstract class Pieza
     {
         public int Id{ get; set; }
         public List<Posicion> Movimientos { get; set; }
@@ -25,8 +25,13 @@ namespace Aprendiendo_Isa.Models
             this.Movimientos = Posiciones;
 
         }
-    }
+        public void Comer(Pieza pieza, List<Pieza> listPieza)
+        {
+            listPieza.Remove(pieza);
+        }
 
+    }
+    
 
     public enum TipoPieza
     {

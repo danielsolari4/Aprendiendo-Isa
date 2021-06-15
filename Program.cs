@@ -11,12 +11,6 @@ namespace Aprendiendo_Isa
 
         //Piezas
 
-
-
-
-
-
-
         static void Main(string[] args)
         {
             Console.WriteLine("Tablero de Ajedrez");
@@ -27,7 +21,7 @@ namespace Aprendiendo_Isa
             int[] columnas = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
 
             //Creacion de piezas
-            Pieza TorreNegra1 = new Pieza(1, TipoPieza.Torre, "negra", 1, 1);
+            Pieza TorreNegra1 = new Torre(1, TipoPieza.Torre, "negra", 1, 1);
             Pieza CaballoNegro1 = new Pieza(2, TipoPieza.Caballo, "negra", 1, 2);
             Pieza AlfilNegro1 = new Pieza(3, TipoPieza.Alfil, "negra", 1, 3);
             Pieza ReinaNegra1 = new Pieza(4, TipoPieza.Reina, "negra", 1, 4);
