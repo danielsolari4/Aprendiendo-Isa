@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Aprendiendo_Isa.Models
 {
-    public class Torre : Pieza
+    class Caballo : Pieza
     {
-        public Torre(int id, TipoPieza tipo, string color, int posY, int posX) :base(id,tipo,color,posY,posX)
+        public Caballo(int id, TipoPieza tipo, string color, int posY, int posX) : base(id, tipo, color, posY, posX)
         {
             this.Id = id;
             this.TipoPieza = tipo;
