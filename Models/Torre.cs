@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Aprendiendo_Isa.Models
 {
-    public class Torre : Pieza
+    public class Torre : Pieza, IMovimiento
     {
-        public Torre(int id, TipoPieza tipo, string color, int posY, int posX) :base(id,tipo,color,posY,posX)
+        public Torre(int id, TipoPieza tipo, string color, int posY, int posX) : base(id, tipo, color, posY, posX)
         {
             this.Id = id;
             this.TipoPieza = tipo;
@@ -18,11 +18,11 @@ namespace Aprendiendo_Isa.Models
             this.Movimientos = Posiciones;
 
         }
-        public void Mover(Pieza piezaAMover, int posY, int posX, List<Pieza> listadoPiezas)
+        public override bool Mover(int posY, int posX, List<Pieza> listadoPiezas)
         {
             //Logica movimiento torre
 
-            var ultimoMovimientoPiezaMover = piezaAMover.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
+            var ultimoMovimientoPiezaMover = this.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
             var result = false;
 
             if (posY == ultimoMovimientoPiezaMover.PosY)
@@ -31,19 +31,23 @@ namespace Aprendiendo_Isa.Models
 
                 for (int i = 1; i <= casillerosAnalizar; i++)
                 {
-                    var piezaAComer = hayPieza(posY, i, listadoPiezas);
+                    var piezaAComer = Tablero.HayPieza(posY, i, listadoPiezas);
 
                     if (piezaAComer != null)
                     {
-                        if (piezaAComer.Id == piezaAMover.Id)
+                        if (piezaAComer.Id == this.Id)
                         {
                             continue;
                         }
+                        if (piezaAComer.Color == this.Color)
+                        {
+                            return false;
+                        }
                         if (i == casillerosAnalizar)
                         {
-                            if (piezaAComer.Color != piezaAMover.Color)
+                            if (piezaAComer.Color != this.Color)
                             {
-                                comerPieza(piezaAComer, listadoPiezas);
+                                Pieza.Comer(piezaAComer, listadoPiezas);
                             }
                         }
                         else
@@ -61,19 +65,23 @@ namespace Aprendiendo_Isa.Models
 
                     for (int i = 1; i <= casillerosAnalizar; i++)
                     {
-                        var piezaAComer = hayPieza(i, posX, listadoPiezas);
+                        var piezaAComer = Tablero.HayPieza(i, posX, listadoPiezas);
 
                         if (piezaAComer != null)
                         {
-                            if (piezaAComer.Id == piezaAMover.Id)
+                            if (piezaAComer.Id == this.Id)
                             {
                                 continue;
                             }
+                            if (piezaAComer.Color == this.Color)
+                            {
+                                return false;
+                            }
                             if (i == casillerosAnalizar)
                             {
-                                if (piezaAComer.Color != piezaAMover.Color)
+                                if (piezaAComer.Color != this.Color)
                                 {
-                                    comerPieza(piezaAComer, listadoPiezas);
+                                    Pieza.Comer(piezaAComer, listadoPiezas);
                                 }
                             }
                             else
@@ -90,6 +98,6 @@ namespace Aprendiendo_Isa.Models
 
         }
 
-        
+
     }
 }
