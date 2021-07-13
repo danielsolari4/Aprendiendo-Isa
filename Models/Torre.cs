@@ -25,58 +25,24 @@ namespace Aprendiendo_Isa.Models
             var ultimoMovimientoPiezaMover = this.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
             var result = false;
 
+
             if (posY == ultimoMovimientoPiezaMover.PosY)
             {
-                var casillerosAnalizar = Math.Abs(posX - ultimoMovimientoPiezaMover.PosX) + 1;
-
-                for (int i = 1; i <= casillerosAnalizar; i++)
+                var casillerosAnalizar = Math.Abs(posX - ultimoMovimientoPiezaMover.PosX);
+                if (posX > ultimoMovimientoPiezaMover.PosX)
                 {
-                    var piezaAComer = Tablero.HayPieza(posY, i, listadoPiezas);
-
-                    if (piezaAComer != null)
-                    {
-                        if (piezaAComer.Id == this.Id)
-                        {
-                            continue;
-                        }
-                        if (piezaAComer.Color == this.Color)
-                        {
-                            return false;
-                        }
-                        if (i == casillerosAnalizar)
-                        {
-                            if (piezaAComer.Color != this.Color)
-                            {
-                                Pieza.Comer(piezaAComer, listadoPiezas);
-                            }
-                        }
-                        else
-                            return false;
-                    }
-                }
-                result = true;
-
-            }
-            else
-            {
-                if (posX == ultimoMovimientoPiezaMover.PosX)
-                {
-                    var casillerosAnalizar = Math.Abs(posY - ultimoMovimientoPiezaMover.PosY) + 1;
-
+                    //Sumar Casilleros
                     for (int i = 1; i <= casillerosAnalizar; i++)
                     {
-                        var piezaAComer = Tablero.HayPieza(i, posX, listadoPiezas);
+                        var piezaAComer = Tablero.HayPieza(posY, ultimoMovimientoPiezaMover.PosX + i, listadoPiezas);
 
                         if (piezaAComer != null)
                         {
                             if (piezaAComer.Id == this.Id)
-                            {
                                 continue;
-                            }
                             if (piezaAComer.Color == this.Color)
-                            {
                                 return false;
-                            }
+
                             if (i == casillerosAnalizar)
                             {
                                 if (piezaAComer.Color != this.Color)
@@ -84,20 +50,94 @@ namespace Aprendiendo_Isa.Models
                                     Pieza.Comer(piezaAComer, listadoPiezas);
                                 }
                             }
-                            else
+                        }
+                    }
+                    result = true;
+                }
+                else
+                {
+                    //Restar Casilleros
+                    for (int i = 1; i <= casillerosAnalizar; i++)
+                    {
+                        var piezaAComer = Tablero.HayPieza(posY, ultimoMovimientoPiezaMover.PosX - i, listadoPiezas);
+
+                        if (piezaAComer != null)
+                        {
+                            if (piezaAComer.Id == this.Id)
+                                continue;
+                            if (piezaAComer.Color == this.Color)
                                 return false;
+
+                            if (i == casillerosAnalizar)
+                            {
+                                if (piezaAComer.Color != this.Color)
+                                {
+                                    Pieza.Comer(piezaAComer, listadoPiezas);
+                                }
+                            }
                         }
                     }
                     result = true;
                 }
 
             }
+            if (posX == ultimoMovimientoPiezaMover.PosX)
+            {
+                var casillerosAnalizar = Math.Abs(posY - ultimoMovimientoPiezaMover.PosX);
+                if (posX > ultimoMovimientoPiezaMover.PosX)
+                {
+                    //Sumar Casilleros
+                    for (int i = 1; i <= casillerosAnalizar; i++)
+                    {
+                        var piezaAComer = Tablero.HayPieza(ultimoMovimientoPiezaMover.PosY - i, posX, listadoPiezas);
 
+                        if (piezaAComer != null)
+                        {
+                            if (piezaAComer.Id == this.Id)
+                                continue;
+                            if (piezaAComer.Color == this.Color)
+                                return false;
+
+                            if (i == casillerosAnalizar)
+                            {
+                                if (piezaAComer.Color != this.Color)
+                                {
+                                    Pieza.Comer(piezaAComer, listadoPiezas);
+                                }
+                            }
+                        }
+                    }
+                    result = true;
+                }
+                else
+                {
+                    //Restar Casilleros
+                    for (int i = 1; i <= casillerosAnalizar; i++)
+                    {
+                        var piezaAComer = Tablero.HayPieza(ultimoMovimientoPiezaMover.PosY + i, posX, listadoPiezas);
+
+                        if (piezaAComer != null)
+                        {
+                            if (piezaAComer.Id == this.Id)
+                                continue;
+                            if (piezaAComer.Color == this.Color)
+                                return false;
+
+                            if (i == casillerosAnalizar)
+                            {
+                                if (piezaAComer.Color != this.Color)
+                                {
+                                    Pieza.Comer(piezaAComer, listadoPiezas);
+                                }
+                            }
+                        }
+                    }
+                    result = true;
+                }
+            }
 
             return result;
-
         }
-
 
     }
 }

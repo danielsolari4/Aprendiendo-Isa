@@ -51,7 +51,7 @@ namespace Aprendiendo_Isa
                 Tablero.ListadoPiezasMenu(piezas);
 
                 var selectPieza = Console.ReadLine();
-                var piezaMover = Tablero.getPiezaById(int.Parse(selectPieza), piezas);
+                var piezaMover = Tablero.GetPiezaById(int.Parse(selectPieza), piezas);
 
 
                 Console.WriteLine("---------------------------------");

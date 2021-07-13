@@ -80,7 +80,7 @@ namespace Aprendiendo_Isa.Models
             //Logica busqueda pieza
             return true;
         }
-        public static Pieza getPiezaById(int id, List<Pieza> ListadoPiezas)
+        public static Pieza GetPiezaById(int id, List<Pieza> ListadoPiezas)
         {
             return ListadoPiezas.FirstOrDefault(x => x.Id == id);
         }

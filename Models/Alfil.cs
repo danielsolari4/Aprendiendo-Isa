@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Aprendiendo_Isa.Models
 {
-    class Alfil : Pieza, IMovimiento
+    public class Alfil : Pieza, IMovimiento
     {
         public Alfil(int id, TipoPieza tipo, string color, int posY, int posX) : base(id, tipo, color, posY, posX)
         {
@@ -18,86 +18,182 @@ namespace Aprendiendo_Isa.Models
             this.Movimientos = Posiciones;
 
         }
-
         public override bool Mover(int posY, int posX, List<Pieza> listadoPiezas)
         {
-            
-            //Logica movimiento torre
-
             var ultimoMovimientoPiezaMover = this.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
-            var result = false;
 
-            if (posY == ultimoMovimientoPiezaMover.PosY)
+            //Logica movimiento Alfil
+
+         
+                
+            //Posiciones validas ↓-→
+            for (int j = 1; j < 8; j++)
             {
-                var casillerosAnalizar = Math.Abs(posX - ultimoMovimientoPiezaMover.PosX) + 1;
+                var posNuevaY= ultimoMovimientoPiezaMover.PosY + j;
+                var posNuevaX= ultimoMovimientoPiezaMover.PosX + j;
 
-                for (int i = 1; i <= casillerosAnalizar; i++)
+                if (posNuevaY == posY && posNuevaX == posX)
                 {
-                    var piezaAComer = Tablero.HayPieza(posY, i, listadoPiezas);
+                    //Movimiento Abajo - Derecha
+                    var casillerosAnalizarX = Math.Abs(posNuevaX - ultimoMovimientoPiezaMover.PosX);
+                    var casillerosAnalizarY = Math.Abs(posNuevaY - ultimoMovimientoPiezaMover.PosY);
 
-                    if (piezaAComer != null)
+                    for (int i = 1; i < casillerosAnalizarX; i++)
                     {
-                        if (piezaAComer.Id == this.Id)
-                        {
-                            continue;
-                        }
-                        if (piezaAComer.Color == this.Color)
-                        {
-                            return false;
-                        }
-                        if (i == casillerosAnalizar)
-                        {
-                            if (piezaAComer.Color != this.Color)
-                            {
-                                Pieza.Comer(piezaAComer, listadoPiezas);
-                            }
-                        }
-                        else
-                            return false;
-                    }
-                }
-                result = true;
+                        var hayPieza = Tablero.HayPieza(ultimoMovimientoPiezaMover.PosY + i, ultimoMovimientoPiezaMover.PosX+ i, listadoPiezas);
 
-            }
-            else
-            {
-                if (posX == ultimoMovimientoPiezaMover.PosX)
-                {
-                    var casillerosAnalizar = Math.Abs(posY - ultimoMovimientoPiezaMover.PosY) + 1;
-
-                    for (int i = 1; i <= casillerosAnalizar; i++)
-                    {
-                        var piezaAComer = Tablero.HayPieza(i, posX, listadoPiezas);
-
-                        if (piezaAComer != null)
+                        if (hayPieza != null)
                         {
-                            if (piezaAComer.Id == this.Id)
+                            if (hayPieza.Id == this.Id)
                             {
                                 continue;
                             }
-                            if (piezaAComer.Color == this.Color)
+                            if (hayPieza.Color == this.Color)
                             {
                                 return false;
                             }
-                            if (i == casillerosAnalizar)
+                            if (i == casillerosAnalizarX)
                             {
-                                if (piezaAComer.Color != this.Color)
+                                if (hayPieza.Color != this.Color)
                                 {
-                                    Pieza.Comer(piezaAComer, listadoPiezas);
+                                    Pieza.Comer(hayPieza, listadoPiezas);
                                 }
                             }
                             else
                                 return false;
                         }
                     }
-                    result = true;
                 }
+            }
+            //Posiciones validas ←-↑
+            for (int j = 1; j < 8; j++)
+            {
+                var posNuevaY = ultimoMovimientoPiezaMover.PosY - j;
+                var posNuevaX = ultimoMovimientoPiezaMover.PosX - j;
 
+                if (posNuevaY == posY && posNuevaX == posX)
+                {
+                    //Movimiento Abajo - Derecha
+                    var casillerosAnalizar = Math.Abs(posNuevaX - ultimoMovimientoPiezaMover.PosX);
+
+                    for (int i = 1; i < casillerosAnalizar; i++)
+                    {
+                        var hayPieza = Tablero.HayPieza(casillerosAnalizar + i, casillerosAnalizar + i, listadoPiezas);
+
+                        if (hayPieza != null)
+                        {
+                            if (hayPieza.Id == this.Id)
+                            {
+                                continue;
+                            }
+                            if (hayPieza.Color == this.Color)
+                            {
+                                return false;
+                            }
+                            if (i == casillerosAnalizar)
+                            {
+                                if (hayPieza.Color != this.Color)
+                                {
+                                    Pieza.Comer(hayPieza, listadoPiezas);
+                                }
+                            }
+                            else
+                                return false;
+                        }
+                    }
+                }
+            }
+            //Posiciones validas ↓-←
+            for (int j = 1; j < 8; j++)
+            {
+                var posNuevaY = ultimoMovimientoPiezaMover.PosY + j;
+                var posNuevaX = ultimoMovimientoPiezaMover.PosX + j;
+
+                if (posNuevaY == posY && posNuevaX == posX)
+                {
+                    //Movimiento Abajo - Derecha
+                    var casillerosAnalizar = Math.Abs(posNuevaX - ultimoMovimientoPiezaMover.PosX);
+
+                    for (int i = 1; i < casillerosAnalizar; i++)
+                    {
+                        var hayPieza = Tablero.HayPieza(casillerosAnalizar + i, casillerosAnalizar + i, listadoPiezas);
+
+                        if (hayPieza != null)
+                        {
+                            if (hayPieza.Id == this.Id)
+                            {
+                                continue;
+                            }
+                            if (hayPieza.Color == this.Color)
+                            {
+                                return false;
+                            }
+                            if (i == casillerosAnalizar)
+                            {
+                                if (hayPieza.Color != this.Color)
+                                {
+                                    Pieza.Comer(hayPieza, listadoPiezas);
+                                }
+                            }
+                            else
+                                return false;
+                        }
+                    }
+                }
+            }
+            //Posiciones validas ↑-→
+            for (int j = 1; j < 8; j++)
+            {
+                var posNuevaY = ultimoMovimientoPiezaMover.PosY + j;
+                var posNuevaX = ultimoMovimientoPiezaMover.PosX + j;
+
+                if (posNuevaY == posY && posNuevaX == posX)
+                {
+                    //Movimiento Abajo - Derecha
+                    var casillerosAnalizar = Math.Abs(posNuevaX - ultimoMovimientoPiezaMover.PosX);
+
+                    for (int i = 1; i < casillerosAnalizar; i++)
+                    {
+                        var hayPieza = Tablero.HayPieza(casillerosAnalizar + i, casillerosAnalizar + i, listadoPiezas);
+
+                        if (hayPieza != null)
+                        {
+                            if (hayPieza.Id == this.Id)
+                            {
+                                continue;
+                            }
+                            if (hayPieza.Color == this.Color)
+                            {
+                                return false;
+                            }
+                            if (i == casillerosAnalizar)
+                            {
+                                if (hayPieza.Color != this.Color)
+                                {
+                                    Pieza.Comer(hayPieza, listadoPiezas);
+                                }
+                            }
+                            else
+                                return false;
+                        }
+                    }
+                }
             }
 
 
-            return result;
+            return true;
+
+
+
+
 
         }
+
+
+            
+
+        
+
+
     }
 }
