@@ -70,6 +70,7 @@ namespace Aprendiendo_Isa
                 if (piezaMover.Mover(nuevaPosicion.PosY, nuevaPosicion.PosX, piezas))
                 {
                     piezaMover.Movimientos.Add(nuevaPosicion);
+                    Console.Clear();
                 }
 
                 else

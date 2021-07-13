@@ -23,7 +23,7 @@ namespace Aprendiendo_Isa.Models
             var ultimoMovimientoPiezaMover = this.Movimientos.OrderByDescending(x => x.Tiempo).FirstOrDefault();
 
             //Logica movimiento Alfil
-
+            var result = false;
          
                 
             //Posiciones validas ↓-→
@@ -38,7 +38,7 @@ namespace Aprendiendo_Isa.Models
                     var casillerosAnalizarX = Math.Abs(posNuevaX - ultimoMovimientoPiezaMover.PosX);
                     var casillerosAnalizarY = Math.Abs(posNuevaY - ultimoMovimientoPiezaMover.PosY);
 
-                    for (int i = 1; i < casillerosAnalizarX; i++)
+                    for (int i = 1; i <= casillerosAnalizarX; i++)
                     {
                         var hayPieza = Tablero.HayPieza(ultimoMovimientoPiezaMover.PosY + i, ultimoMovimientoPiezaMover.PosX+ i, listadoPiezas);
 
@@ -59,10 +59,10 @@ namespace Aprendiendo_Isa.Models
                                     Pieza.Comer(hayPieza, listadoPiezas);
                                 }
                             }
-                            else
-                                return false;
+                            
                         }
                     }
+                    result = true;
                 }
             }
             //Posiciones validas ←-↑
@@ -76,7 +76,7 @@ namespace Aprendiendo_Isa.Models
                     //Movimiento Abajo - Derecha
                     var casillerosAnalizar = Math.Abs(posNuevaX - ultimoMovimientoPiezaMover.PosX);
 
-                    for (int i = 1; i < casillerosAnalizar; i++)
+                    for (int i = 1; i <= casillerosAnalizar; i++)
                     {
                         var hayPieza = Tablero.HayPieza(casillerosAnalizar + i, casillerosAnalizar + i, listadoPiezas);
 
@@ -97,26 +97,26 @@ namespace Aprendiendo_Isa.Models
                                     Pieza.Comer(hayPieza, listadoPiezas);
                                 }
                             }
-                            else
-                                return false;
+                           
                         }
                     }
+                    result = true;
                 }
             }
             //Posiciones validas ↓-←
             for (int j = 1; j < 8; j++)
             {
                 var posNuevaY = ultimoMovimientoPiezaMover.PosY + j;
-                var posNuevaX = ultimoMovimientoPiezaMover.PosX + j;
+                var posNuevaX = ultimoMovimientoPiezaMover.PosX - j;
 
                 if (posNuevaY == posY && posNuevaX == posX)
                 {
                     //Movimiento Abajo - Derecha
                     var casillerosAnalizar = Math.Abs(posNuevaX - ultimoMovimientoPiezaMover.PosX);
 
-                    for (int i = 1; i < casillerosAnalizar; i++)
+                    for (int i = 1; i <= casillerosAnalizar; i++)
                     {
-                        var hayPieza = Tablero.HayPieza(casillerosAnalizar + i, casillerosAnalizar + i, listadoPiezas);
+                        var hayPieza = Tablero.HayPieza(casillerosAnalizar + i, casillerosAnalizar - i, listadoPiezas);
 
                         if (hayPieza != null)
                         {
@@ -135,16 +135,16 @@ namespace Aprendiendo_Isa.Models
                                     Pieza.Comer(hayPieza, listadoPiezas);
                                 }
                             }
-                            else
-                                return false;
+                            
                         }
                     }
+                    result = true;
                 }
             }
             //Posiciones validas ↑-→
             for (int j = 1; j < 8; j++)
             {
-                var posNuevaY = ultimoMovimientoPiezaMover.PosY + j;
+                var posNuevaY = ultimoMovimientoPiezaMover.PosY - j;
                 var posNuevaX = ultimoMovimientoPiezaMover.PosX + j;
 
                 if (posNuevaY == posY && posNuevaX == posX)
@@ -152,9 +152,9 @@ namespace Aprendiendo_Isa.Models
                     //Movimiento Abajo - Derecha
                     var casillerosAnalizar = Math.Abs(posNuevaX - ultimoMovimientoPiezaMover.PosX);
 
-                    for (int i = 1; i < casillerosAnalizar; i++)
+                    for (int i = 1; i <= casillerosAnalizar; i++)
                     {
-                        var hayPieza = Tablero.HayPieza(casillerosAnalizar + i, casillerosAnalizar + i, listadoPiezas);
+                        var hayPieza = Tablero.HayPieza(casillerosAnalizar - i, casillerosAnalizar + i, listadoPiezas);
 
                         if (hayPieza != null)
                         {
@@ -173,15 +173,15 @@ namespace Aprendiendo_Isa.Models
                                     Pieza.Comer(hayPieza, listadoPiezas);
                                 }
                             }
-                            else
-                                return false;
+                            
                         }
                     }
+                    result = true;
                 }
             }
 
 
-            return true;
+            return result;
 
 
 

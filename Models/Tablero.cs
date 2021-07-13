@@ -8,7 +8,7 @@ namespace Aprendiendo_Isa.Models
     class Tablero
     {
         public int Id { get; set; }
-        public int[] Columnas{ get; set; }
+        public int[] Columnas { get; set; }
         public int[] Filas { get; set; }
         public List<Pieza> ListadoPiezas { get; set; }
 
@@ -23,7 +23,7 @@ namespace Aprendiendo_Isa.Models
         {
             //Console.Clear();
 
-            string[] filasLetras = new string[] { "A","B", "C", "D", "E", "F", "G", "H"};
+            string[] filasLetras = new string[] { "A", "B", "C", "D", "E", "F", "G", "H" };
 
             Console.ForegroundColor = ConsoleColor.White;
             for (int i = 0; i < filas.Length; i++)
@@ -35,7 +35,15 @@ namespace Aprendiendo_Isa.Models
 
 
                     if (!Coincide(piezasList, columnas[x], filas[i]))
+                    {
+
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write("0 ");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
 
                 }
                 //Ultima lineas coordenadas numeros
@@ -66,6 +74,7 @@ namespace Aprendiendo_Isa.Models
 
                         if (columna == ultimoMovimiento.PosY && fila == ultimoMovimiento.PosX)
                         {
+                            Console.ForegroundColor = ConsoleColor.White;
                             Console.Write(pieza.TipoPieza.ToString()[0] + " ");
                             return true;
                         }
@@ -75,7 +84,7 @@ namespace Aprendiendo_Isa.Models
             return false;
 
         }
-        public bool CaminoLibre(int posY,int posX)
+        public bool CaminoLibre(int posY, int posX)
         {
             //Logica busqueda pieza
             return true;
