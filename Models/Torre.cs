@@ -83,13 +83,13 @@ namespace Aprendiendo_Isa.Models
             }
             if (posX == ultimoMovimientoPiezaMover.PosX)
             {
-                var casillerosAnalizar = Math.Abs(posY - ultimoMovimientoPiezaMover.PosX);
-                if (posX > ultimoMovimientoPiezaMover.PosX)
+                var casillerosAnalizar = Math.Abs(posY - ultimoMovimientoPiezaMover.PosY);
+                if (posY > ultimoMovimientoPiezaMover.PosY)
                 {
                     //Sumar Casilleros
                     for (int i = 1; i <= casillerosAnalizar; i++)
                     {
-                        var piezaAComer = Tablero.HayPieza(ultimoMovimientoPiezaMover.PosY - i, posX, listadoPiezas);
+                        var piezaAComer = Tablero.HayPieza(ultimoMovimientoPiezaMover.PosY + i, posX, listadoPiezas);
 
                         if (piezaAComer != null)
                         {
@@ -114,7 +114,7 @@ namespace Aprendiendo_Isa.Models
                     //Restar Casilleros
                     for (int i = 1; i <= casillerosAnalizar; i++)
                     {
-                        var piezaAComer = Tablero.HayPieza(ultimoMovimientoPiezaMover.PosY + i, posX, listadoPiezas);
+                        var piezaAComer = Tablero.HayPieza(ultimoMovimientoPiezaMover.PosY - i, posX, listadoPiezas);
 
                         if (piezaAComer != null)
                         {
